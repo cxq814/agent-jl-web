@@ -35,9 +35,23 @@
 
 - **后端**: Python / FastAPI / LangGraph / LangChain
 - **前端**: HTML5 / CSS3 / JavaScript（单页应用）
-- **LLM**: DeepSeek（阿里云百炼 API）
+- **LLM**: DeepSeek API（对话/推理）+ 阿里云百炼 DashScope（向量嵌入）
 - **向量库**: ChromaDB
-- **持久化**: SQLite / Redis（可选）
+- **持久化**: Redis → SQLite → 内存 三层降级策略
+
+---
+
+### 🔒 会话持久化与容错
+
+系统采用 **Redis → SQLite → 内存** 三层会话持久化降级策略，确保长时间面试会话稳定运行：
+
+| 层级 | 存储 | 场景 |
+|------|------|------|
+| L1 | Redis | 生产环境首选，高性能会话缓存 |
+| L2 | SQLite | Redis 不可用时自动降级，本地持久化 |
+| L3 | 内存 | 最终兜底，保证服务不中断 |
+
+配合全链路接口重试、LLM JSON 解析容错，即使在 LLM 返回格式异常或网络波动时也能保障体验不崩。
 
 ---
 
@@ -47,12 +61,6 @@
 
 ```bash
 pip install -r requirements.txt
-```
-
-额外依赖：
-
-```bash
-pip install python-multipart redis fastapi uvicorn
 ```
 
 ### 2. 配置环境变量
@@ -118,17 +126,22 @@ uvicorn web_server:app --reload --host 0.0.0.0 --port 8000
 | langchain + langgraph | 多 Agent 编排框架 |
 | chromadb | 向量数据库，简历/岗位相似度检索 |
 | fastapi + uvicorn | Web 服务框架 |
+| langchain-openai | DeepSeek LLM 调用（OpenAI 兼容接口） |
 | python-dotenv | 环境变量管理 |
-| zhipuai | 备用 LLM 接口 |
+| python-docx | 面试报告 Word 文档生成 |
+| redis | 会话缓存（三层降级策略 L1） |
+| Pillow + matplotlib | 图表与可视化 |
 
 ---
 
 ## 📸 界面预览
 
-Web 界面包含：
-- 侧边栏：面试类型选择、历史记录
-- 聊天区：实时对话、Markdown 渲染
-- 文件上传：简历上传与解析
+> 启动项目后访问 `http://localhost:8000` 即可体验，截图待补充。
+
+<!-- TODO: 添加运行截图
+![面试界面](screenshots/interview.png)
+![报告页面](screenshots/report.png)
+-->
 
 ---
 
@@ -139,8 +152,3 @@ Web 界面包含：
 - ChromaDB 向量库首次启动会自动初始化
 - 项目默认使用阿里云百炼 DeepSeek API
 
----
-
-## 📄 License
-
-MIT
