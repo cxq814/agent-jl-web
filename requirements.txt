@@ -1,5 +1,15 @@
+fastapi
+uvicorn
 langchain
 langchain-community
+langchain-openai
+langchain-text-splitters
+langgraph
 chromadb
-zhipuai
 python-dotenv
+python-multipart
+zhipuai
+Pillow
+python-docx
+redis
+matplotlib
