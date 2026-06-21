@@ -1,0 +1,34 @@
+# Python 虚拟环境
+.venv/
+
+# Python 编译缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 环境变量（含 API 密钥，绝不上传！）
+.env
+
+# ChromaDB 向量数据库
+chroma_db/
+
+# SQLite 数据库文件
+*.db
+
+# 临时上传文件
+temp_uploads/
+
+# 视频和图片等大文件
+*.mp4
+*.png
+*.jpg
+*.jpeg
+
+# IDE 和编辑器配置
+.vscode/
+.idea/
+
+# Python 分发 / 打包
+dist/
+build/
+*.egg-info/
