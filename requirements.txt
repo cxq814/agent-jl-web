@@ -8,7 +8,6 @@ langgraph
 chromadb
 python-dotenv
 python-multipart
-zhipuai
 Pillow
 python-docx
 redis
