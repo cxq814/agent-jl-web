@@ -136,18 +136,13 @@ uvicorn web_server:app --reload --host 0.0.0.0 --port 8000
 
 ## 📸 界面预览
 
-> 启动项目后访问 `http://localhost:8000` 即可体验，截图待补充。
+> 启动项目后访问 `http://localhost:8000` 即可体验
 
-<!-- TODO: 添加运行截图
-![面试界面](screenshots/interview.png)
-![报告页面](screenshots/report.png)
--->
 
 ---
 
 ## ⚠️ 注意事项
 
-- `.env` 文件包含 API 密钥，**切勿上传到公开仓库**
 - 首次运行需要配置 LLM API 密钥
 - ChromaDB 向量库首次启动会自动初始化
 - 项目默认使用阿里云百炼 DeepSeek API
